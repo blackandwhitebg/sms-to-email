@@ -26,10 +26,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -95,6 +101,12 @@ class MainActivity : ComponentActivity() {
 fun MainContent(currentText: String) {
     var context = LocalContext.current
 
+    var emptyLogInfo=""
+    if (currentText.isNullOrBlank()) {
+        emptyLogInfo = "\n\n\n- The log is currently empty -"
+        emptyLogInfo += "\n\n(Use Settings to update your configuration)"
+    }
+
     Column {
         TopAppBar(
             colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -119,6 +131,8 @@ fun MainContent(currentText: String) {
                 }
             }
         )
+
+        Text(emptyLogInfo, modifier = Modifier.fillMaxWidth(), color = Color.Gray, textAlign = TextAlign.Center)
 
         Text(currentText, modifier = Modifier.weight(1f).verticalScroll(rememberScrollState(0)))
     }

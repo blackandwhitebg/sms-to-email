@@ -14,6 +14,7 @@ class SmtpManager {
         var host = dataUtils.loadSmtpData(context, dataUtils.SMTP_HOST)
         var port = dataUtils.loadSmtpData(context, dataUtils.SMTP_PORT)
         var email = dataUtils.loadSmtpData(context, dataUtils.SMTP_EMAIL)
+        var toEmail = dataUtils.loadSmtpData(context, dataUtils.SMTP_TO_EMAIL)
         var pass = dataUtils.loadSmtpData(context, dataUtils.SMTP_PASS)
 
         try{
@@ -28,7 +29,7 @@ class SmtpManager {
         val password =  pass
 
         val emailFrom = email
-        val emailTo = email
+        val emailTo = toEmail
         //val emailCC = "chris_jackson_777@hotmail.com"
 
         val subject = "SMTP Test"

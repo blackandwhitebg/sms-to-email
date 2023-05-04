@@ -12,6 +12,7 @@ class DataUtils {
     val SMTP_PORT = "SMTP_PORT"
     val SMTP_EMAIL = "SMTP_EMAIL"
     val SMTP_PASS = "SMTP_PASS"
+    val SMTP_TO_EMAIL = "SMTP_TO_EMAIL"
 
     public fun loadLog(context: Context) : String {
         val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)

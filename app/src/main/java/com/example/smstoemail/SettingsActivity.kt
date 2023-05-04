@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.smstoemail.ui.theme.SmsToEmailTheme
@@ -69,20 +71,22 @@ fun SettingsView(caller: SettingsActivity) {
     val host = dataUtils.loadSmtpData(context, dataUtils.SMTP_HOST)
     var port = dataUtils.loadSmtpData(context, dataUtils.SMTP_PORT)
     val email = dataUtils.loadSmtpData(context, dataUtils.SMTP_EMAIL)
+    val toEmail = dataUtils.loadSmtpData(context, dataUtils.SMTP_TO_EMAIL)
     val pass = dataUtils.loadSmtpData(context, dataUtils.SMTP_PASS)
 
     try {
         port.toInt()
     } catch (e: Exception) {
-        port = "0"
+        port = "587"
     }
 
     var smtpHost: String by rememberSaveable { mutableStateOf(host) }
     var smtpPort: Int by rememberSaveable { mutableStateOf(port.toInt()) }
     var smtpEmail: String by rememberSaveable { mutableStateOf(email) }
     var smtpPass: String by rememberSaveable { mutableStateOf(pass) }
-    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+    var smtpToEmail: String by rememberSaveable { mutableStateOf(toEmail) }
 
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var settingsStatus: String by rememberSaveable { mutableStateOf("") }
 
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -109,7 +113,9 @@ fun SettingsView(caller: SettingsActivity) {
             },
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(5.dp))
+
+        Text("Sender Settings:", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
 
         TextField(
             value = smtpHost,
@@ -117,7 +123,7 @@ fun SettingsView(caller: SettingsActivity) {
                 smtpHost = it
                 dataUtils.saveSmtpData(context, dataUtils.SMTP_HOST, smtpHost)
             },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             label = { Text("SMTP Host") }
@@ -133,13 +139,13 @@ fun SettingsView(caller: SettingsActivity) {
                     smtpPort = 0
                 }
             },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Number
             ),
-            label = { Text("SMTP Port") }
+            label = { Text("SMTP Port (TLS)") }
         )
 
         TextField(
@@ -148,13 +154,13 @@ fun SettingsView(caller: SettingsActivity) {
                 smtpEmail = it
                 dataUtils.saveSmtpData(context, dataUtils.SMTP_EMAIL, smtpEmail)
             },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Email
             ),
-            label = { Text("E-mail") }
+            label = { Text("E-mail (From)") }
         )
 
         TextField(
@@ -168,7 +174,7 @@ fun SettingsView(caller: SettingsActivity) {
             placeholder = { Text("Password") },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
             trailingIcon = {
                 val image = if (passwordVisible)
                     Icons.Filled.VisibilityOff
@@ -183,7 +189,26 @@ fun SettingsView(caller: SettingsActivity) {
             }
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(5.dp))
+
+        Text("Recipient Settings:", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+
+        TextField(
+            value = smtpToEmail,
+            onValueChange = {
+                smtpToEmail = it
+                dataUtils.saveSmtpData(context, dataUtils.SMTP_TO_EMAIL, smtpToEmail)
+            },
+            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Email
+            ),
+            label = { Text("E-mail (To)") }
+        )
+
+        Spacer(modifier = Modifier.height(5.dp))
 
         Button(onClick = {
             settingsStatus = "Sending E-mail, Please Wait ..."
