@@ -213,11 +213,11 @@ fun SettingsView(caller: SettingsActivity) {
         Button(onClick = {
             settingsStatus = "Sending E-mail, Please Wait ..."
             Thread {
-                try {
+                settingsStatus = try {
                     SmtpManager().sendEmail(context, "This is a sample Text")
-                    settingsStatus = "An E-mail was sent successfully"
+                    "An E-mail was sent successfully"
                 } catch (e: Exception) {
-                    settingsStatus = e.message ?: e.toString()
+                    e.message ?: e.toString()
                 }
             }.start()
         }, modifier = Modifier.align(Alignment.CenterHorizontally)) {

@@ -47,8 +47,7 @@
 
         <service
             android:name=".SmsBackgroundService"
-            android:enabled="true"
-            android:exported="true" />
+            android:enabled="true" />
 
         <receiver
             android:name=".SmsReceiver"

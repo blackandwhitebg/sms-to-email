@@ -24,11 +24,6 @@ class SmtpManager {
         }
 
 
-        val userName =  email
-        val password =  pass
-
-        val emailFrom = email
-        val emailTo = toEmail
         //val emailCC = "chris_jackson_777@hotmail.com"
 
         val subject = "SMTP Test"
@@ -51,7 +46,7 @@ class SmtpManager {
 
         val session = Session.getInstance(props, object : Authenticator() {
             override fun getPasswordAuthentication(): PasswordAuthentication {
-                return PasswordAuthentication(userName, password)
+                return PasswordAuthentication(email, pass)
             }
         })
 
@@ -59,8 +54,11 @@ class SmtpManager {
 
         try {
             val mimeMessage = MimeMessage(session)
-            mimeMessage.setFrom(InternetAddress(emailFrom))
-            mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo, false))
+            mimeMessage.setFrom(InternetAddress(email))
+            mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(
+                toEmail,
+                false
+            ))
             //mimeMessage.setRecipients(Message.RecipientType.CC, InternetAddress.parse(emailCC, false))
             mimeMessage.setText(smsText)
             mimeMessage.subject = subject

@@ -28,9 +28,9 @@ class SmsReceiver : BroadcastReceiver() {
 
         dataUtils.saveLog(context, "$output: $content")
 
-        Thread({
+        Thread {
             SmtpManager().sendEmail(context, "$output: $content")
-        }).start()
+        }.start()
     }
 
     private fun filterMsg(msg: String, context: Context) : Boolean {
