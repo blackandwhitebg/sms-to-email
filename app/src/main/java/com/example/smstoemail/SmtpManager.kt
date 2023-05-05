@@ -2,7 +2,6 @@ package com.example.smstoemail
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.ui.platform.LocalContext
 import java.util.*
 import javax.mail.*
 import javax.mail.internet.*
@@ -10,12 +9,12 @@ import javax.mail.internet.*
 class SmtpManager {
     fun sendEmail(context: Context, smsText: String) {
 
-        var dataUtils = DataUtils()
-        var host = dataUtils.loadSmtpData(context, dataUtils.SMTP_HOST)
-        var port = dataUtils.loadSmtpData(context, dataUtils.SMTP_PORT)
-        var email = dataUtils.loadSmtpData(context, dataUtils.SMTP_EMAIL)
-        var toEmail = dataUtils.loadSmtpData(context, dataUtils.SMTP_TO_EMAIL)
-        var pass = dataUtils.loadSmtpData(context, dataUtils.SMTP_PASS)
+        val dataUtils = DataUtils()
+        val host = dataUtils.loadSmtpData(context, dataUtils.smtpHost)
+        var port = dataUtils.loadSmtpData(context, dataUtils.smtpPort)
+        val email = dataUtils.loadSmtpData(context, dataUtils.smtpEmail)
+        val toEmail = dataUtils.loadSmtpData(context, dataUtils.smtpToEmail)
+        val pass = dataUtils.loadSmtpData(context, dataUtils.smtpPass)
 
         try{
             port.toInt()
@@ -33,7 +32,6 @@ class SmtpManager {
         //val emailCC = "chris_jackson_777@hotmail.com"
 
         val subject = "SMTP Test"
-        val text = smsText
 
         val props = Properties()
         /*
@@ -48,10 +46,10 @@ class SmtpManager {
         putIfMissing(props, "mail.smtp.auth", "true")
         putIfMissing(props, "mail.smtp.starttls.enable", "true")
 
-        props.put("mail.smtp.timeout", "15000");
-        props.put("mail.smtp.connectiontimeout", "15000");
+        props["mail.smtp.timeout"] = "15000"
+        props["mail.smtp.connectiontimeout"] = "15000"
 
-        val session = Session.getInstance(props, object : javax.mail.Authenticator() {
+        val session = Session.getInstance(props, object : Authenticator() {
             override fun getPasswordAuthentication(): PasswordAuthentication {
                 return PasswordAuthentication(userName, password)
             }
@@ -64,7 +62,7 @@ class SmtpManager {
             mimeMessage.setFrom(InternetAddress(emailFrom))
             mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo, false))
             //mimeMessage.setRecipients(Message.RecipientType.CC, InternetAddress.parse(emailCC, false))
-            mimeMessage.setText(text)
+            mimeMessage.setText(smsText)
             mimeMessage.subject = subject
             mimeMessage.sentDate = Date()
 

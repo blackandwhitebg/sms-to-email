@@ -67,17 +67,17 @@ fun SettingsView(caller: SettingsActivity) {
     val context = LocalContext.current
     val dataUtils = DataUtils()
 
-    val host = dataUtils.loadSmtpData(context, dataUtils.SMTP_HOST)
-    var port = dataUtils.loadSmtpData(context, dataUtils.SMTP_PORT)
-    val email = dataUtils.loadSmtpData(context, dataUtils.SMTP_EMAIL)
-    val toEmail = dataUtils.loadSmtpData(context, dataUtils.SMTP_TO_EMAIL)
-    val pass = dataUtils.loadSmtpData(context, dataUtils.SMTP_PASS)
+    val host = dataUtils.loadSmtpData(context, dataUtils.smtpHost)
+    var port = dataUtils.loadSmtpData(context, dataUtils.smtpPort)
+    val email = dataUtils.loadSmtpData(context, dataUtils.smtpEmail)
+    val toEmail = dataUtils.loadSmtpData(context, dataUtils.smtpToEmail)
+    val pass = dataUtils.loadSmtpData(context, dataUtils.smtpPass)
 
     try {
         port.toInt()
     } catch (e: Exception) {
         port = "587"
-        dataUtils.saveSmtpData(context, dataUtils.SMTP_PORT, port)
+        dataUtils.saveSmtpData(context, dataUtils.smtpPort, port)
     }
 
     var smtpHost: String by rememberSaveable { mutableStateOf(host) }
@@ -121,7 +121,7 @@ fun SettingsView(caller: SettingsActivity) {
             value = smtpHost,
             onValueChange = {
                 smtpHost = it
-                dataUtils.saveSmtpData(context, dataUtils.SMTP_HOST, smtpHost)
+                dataUtils.saveSmtpData(context, dataUtils.smtpHost, smtpHost)
             },
             modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
@@ -134,7 +134,7 @@ fun SettingsView(caller: SettingsActivity) {
             onValueChange = {
                 try {
                     smtpPort = it.toInt()
-                    dataUtils.saveSmtpData(context, dataUtils.SMTP_PORT, it)
+                    dataUtils.saveSmtpData(context, dataUtils.smtpPort, it)
                 } catch (e: Exception) {
                     smtpPort = 0
                 }
@@ -152,7 +152,7 @@ fun SettingsView(caller: SettingsActivity) {
             value = smtpEmail,
             onValueChange = {
                 smtpEmail = it
-                dataUtils.saveSmtpData(context, dataUtils.SMTP_EMAIL, smtpEmail)
+                dataUtils.saveSmtpData(context, dataUtils.smtpEmail, smtpEmail)
             },
             modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
@@ -167,7 +167,7 @@ fun SettingsView(caller: SettingsActivity) {
             value = smtpPass,
             onValueChange = {
                 smtpPass = it
-                dataUtils.saveSmtpData(context, dataUtils.SMTP_PASS, smtpPass)
+                dataUtils.saveSmtpData(context, dataUtils.smtpPass, smtpPass)
             },
             label = { Text("Password") },
             singleLine = true,
@@ -197,7 +197,7 @@ fun SettingsView(caller: SettingsActivity) {
             value = smtpToEmail,
             onValueChange = {
                 smtpToEmail = it
-                dataUtils.saveSmtpData(context, dataUtils.SMTP_TO_EMAIL, smtpToEmail)
+                dataUtils.saveSmtpData(context, dataUtils.smtpToEmail, smtpToEmail)
             },
             modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),

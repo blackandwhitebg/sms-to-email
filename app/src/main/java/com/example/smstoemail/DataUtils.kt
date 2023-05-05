@@ -4,49 +4,49 @@ import android.content.Context
 import android.util.Log
 
 class DataUtils {
-    val MY_PREF = "BW_SMSTOEMAIL_PREF"
+    private val appPreferences = "BW_SMSTOEMAIL_PREF"
 
-    val LOG_TEXT = "LOG_TEXT"
-    val FILTER_CONTAINS = "FILTER_CONTAINS"
+    private val logText = "LOG_TEXT"
+    private val filterContains = "FILTER_CONTAINS"
 
-    val SMTP_HOST = "SMTP_HOST"
-    val SMTP_PORT = "SMTP_PORT"
-    val SMTP_EMAIL = "SMTP_EMAIL"
-    val SMTP_PASS = "SMTP_PASS"
-    val SMTP_TO_EMAIL = "SMTP_TO_EMAIL"
+    val smtpHost = "SMTP_HOST"
+    val smtpPort = "SMTP_PORT"
+    val smtpEmail = "SMTP_EMAIL"
+    val smtpPass = "SMTP_PASS"
+    val smtpToEmail = "SMTP_TO_EMAIL"
 
-    public fun loadLog(context: Context) : String {
-        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
-        var current = sharedPreferences.getString(LOG_TEXT, "")
-        return current.toString();
+    fun loadLog(context: Context) : String {
+        val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
+        val current = sharedPreferences.getString(logText, "")
+        return current.toString()
     }
 
-    public fun saveLog(context: Context, content: String) {
-        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
-        var current = sharedPreferences.getString(LOG_TEXT, "")
-        sharedPreferences.edit().putString(LOG_TEXT, current + "\n" + content).commit()
+    fun saveLog(context: Context, content: String) {
+        val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
+        val current = sharedPreferences.getString(logText, "")
+        sharedPreferences.edit().putString(logText, current + "\n" + content).apply()
     }
 
-    public fun loadFilterContains(context: Context) : String {
-        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
-        var current = sharedPreferences.getString(FILTER_CONTAINS, "")
-        return current.toString();
+    fun loadFilterContains(context: Context) : String {
+        val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
+        val current = sharedPreferences.getString(filterContains, "")
+        return current.toString()
     }
 
-    public fun saveFilterContains(context: Context, content: String) {
-        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
-        sharedPreferences.edit().putString(FILTER_CONTAINS, content).commit()
+    fun saveFilterContains(context: Context, content: String) {
+        val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
+        sharedPreferences.edit().putString(filterContains, content).apply()
     }
 
-    public fun saveSmtpData(context: Context, key: String, value: String) {
-        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
-        sharedPreferences.edit().putString(key, value).commit()
+    fun saveSmtpData(context: Context, key: String, value: String) {
+        val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
+        sharedPreferences.edit().putString(key, value).apply()
         Log.i("Data", "Save $key -> $value")
     }
 
-    public fun loadSmtpData(context: Context, key: String) : String {
-        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
-        var current = sharedPreferences.getString(key, "")
+    fun loadSmtpData(context: Context, key: String) : String {
+        val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
+        val current = sharedPreferences.getString(key, "")
         Log.i("Data", "Load $key -> $current")
         return current.toString()
     }

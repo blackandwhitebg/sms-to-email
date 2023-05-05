@@ -28,7 +28,7 @@ class SmsReceiver : BroadcastReceiver() {
 
         dataUtils.saveLog(context, "$output: $content")
 
-        Thread(Runnable {
+        Thread({
             SmtpManager().sendEmail(context, "$output: $content")
         }).start()
     }
@@ -40,7 +40,7 @@ class SmsReceiver : BroadcastReceiver() {
             return false
         }
 
-        var allowed: Boolean = false
+        var allowed = false
 
         for (line in filters.lines()) {
             if (msg.contains(line, ignoreCase = true)) {

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -62,7 +61,7 @@ fun FiltersView(caller: FiltersActivity) {
     val context = LocalContext.current
     val dataUtils = DataUtils()
 
-    var filterContainsValue = dataUtils.loadFilterContains(context)
+    val filterContainsValue = dataUtils.loadFilterContains(context)
     var filterContains: String by rememberSaveable { mutableStateOf(filterContainsValue) }
 
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
