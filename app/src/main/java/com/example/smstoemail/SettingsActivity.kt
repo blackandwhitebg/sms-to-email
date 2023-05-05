@@ -1,7 +1,6 @@
 package com.example.smstoemail
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -78,6 +77,7 @@ fun SettingsView(caller: SettingsActivity) {
         port.toInt()
     } catch (e: Exception) {
         port = "587"
+        dataUtils.saveSmtpData(context, dataUtils.SMTP_PORT, port)
     }
 
     var smtpHost: String by rememberSaveable { mutableStateOf(host) }

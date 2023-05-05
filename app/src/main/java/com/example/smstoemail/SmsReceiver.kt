@@ -5,16 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
 import android.util.Log
-import android.widget.Toast
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
 class SmsReceiver : BroadcastReceiver() {
-
-    companion object {
-        private val TAG by lazy { SmsReceiver::class.java.simpleName }
-    }
 
     private var dataUtils = DataUtils()
 
@@ -22,7 +16,11 @@ class SmsReceiver : BroadcastReceiver() {
         Log.v("App", "SMS Received!")
         val message = Telephony.Sms.Intents.getMessagesFromIntent(intent)
         val content = message[0].displayMessageBody
-        Toast.makeText(context, content, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, content, Toast.LENGTH_SHORT).show()
+
+        if (filterMsg(content, context)) {
+            return
+        }
 
         val localDateTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
@@ -33,5 +31,24 @@ class SmsReceiver : BroadcastReceiver() {
         Thread(Runnable {
             SmtpManager().sendEmail(context, "$output: $content")
         }).start()
+    }
+
+    private fun filterMsg(msg: String, context: Context) : Boolean {
+        val filters = dataUtils.loadFilterContains(context)
+
+        if (filters.isBlank()) {
+            return false
+        }
+
+        var allowed: Boolean = false
+
+        for (line in filters.lines()) {
+            if (msg.contains(line, ignoreCase = true)) {
+                allowed = true
+                break
+            }
+        }
+
+        return !allowed
     }
 }

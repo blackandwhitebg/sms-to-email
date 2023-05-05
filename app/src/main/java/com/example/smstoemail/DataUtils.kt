@@ -7,6 +7,7 @@ class DataUtils {
     val MY_PREF = "BW_SMSTOEMAIL_PREF"
 
     val LOG_TEXT = "LOG_TEXT"
+    val FILTER_CONTAINS = "FILTER_CONTAINS"
 
     val SMTP_HOST = "SMTP_HOST"
     val SMTP_PORT = "SMTP_PORT"
@@ -24,6 +25,17 @@ class DataUtils {
         val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
         var current = sharedPreferences.getString(LOG_TEXT, "")
         sharedPreferences.edit().putString(LOG_TEXT, current + "\n" + content).commit()
+    }
+
+    public fun loadFilterContains(context: Context) : String {
+        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
+        var current = sharedPreferences.getString(FILTER_CONTAINS, "")
+        return current.toString();
+    }
+
+    public fun saveFilterContains(context: Context, content: String) {
+        val sharedPreferences = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
+        sharedPreferences.edit().putString(FILTER_CONTAINS, content).commit()
     }
 
     public fun saveSmtpData(context: Context, key: String, value: String) {

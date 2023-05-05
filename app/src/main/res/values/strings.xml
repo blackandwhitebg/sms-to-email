@@ -2,5 +2,6 @@
     <string name="app_name">B&amp;W SMS to E-mail</string>
     <string name="title_activity_main">SMS to E-mail</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_filters">FiltersActivity</string>
     <!-- Strings used for fragments for navigation -->
 </resources>

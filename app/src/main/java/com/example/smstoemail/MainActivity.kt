@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Filter
+import androidx.compose.material.icons.filled.FilterAlt
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -120,12 +123,18 @@ fun MainContent(currentText: String) {
             },
             actions = {
                 IconButton(onClick = {
+                    context.startActivity(Intent(context, FiltersActivity::class.java))
+                }) {
+                    Icon(
+                        Icons.Filled.FilterAlt, "Filters",
+                        tint = MaterialTheme.colorScheme.background
+                    )
+                }
+                IconButton(onClick = {
                     context.startActivity(Intent(context, SettingsActivity::class.java))
                 }) {
                     Icon(
-                        Icons.Filled.Settings,
-                        //painterResource(id = R.drawable.settings),
-                        "Settings",
+                        Icons.Filled.Settings, "Settings",
                         tint = MaterialTheme.colorScheme.background
                     )
                 }
