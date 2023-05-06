@@ -1,4 +1,4 @@
-package com.example.smstoemail.ui.theme
+package com.bnwsoft.smstoemail.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.example.smstoemail
+package com.bnwsoft.smstoemail
 
 import android.app.ActivityManager
 import android.content.Intent
@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.smstoemail.ui.theme.SmsToEmailTheme
+import com.bnwsoft.smstoemail.ui.theme.SmsToEmailTheme
 
 class MainActivity : ComponentActivity() {
 

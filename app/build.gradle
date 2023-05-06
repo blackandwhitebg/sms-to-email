@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.smstoemail'
+    namespace 'com.bnwsoft.smstoemail'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.smstoemail"
+        applicationId "com.bnwsoft.smstoemail"
         minSdk 29
         targetSdk 33
         versionCode 1

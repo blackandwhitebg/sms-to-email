@@ -1,4 +1,4 @@
-package com.example.smstoemail.ui.theme
+package com.bnwsoft.smstoemail.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

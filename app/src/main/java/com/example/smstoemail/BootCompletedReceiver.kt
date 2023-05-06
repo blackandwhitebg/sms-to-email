@@ -1,4 +1,4 @@
-package com.example.smstoemail
+package com.bnwsoft.smstoemail
 
 import android.content.BroadcastReceiver
 import android.content.Context

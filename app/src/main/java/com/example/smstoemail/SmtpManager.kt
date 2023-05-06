@@ -1,4 +1,4 @@
-package com.example.smstoemail
+package com.bnwsoft.smstoemail
 
 import android.content.Context
 import android.util.Log
