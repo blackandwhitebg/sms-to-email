@@ -81,6 +81,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         if( isMyServiceRunning(SmsBackgroundService::class.java)) {
             Log.d("TAG", "The service is already running")

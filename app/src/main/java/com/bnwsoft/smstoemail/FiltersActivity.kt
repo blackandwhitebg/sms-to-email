@@ -43,6 +43,12 @@ import androidx.compose.ui.unit.sp
 import com.bnwsoft.smstoemail.ui.theme.SmsToEmailTheme
 
 class FiltersActivity : ComponentActivity() {
+
+    override fun onStart() {
+        super.onStart()
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
