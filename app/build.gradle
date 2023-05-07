@@ -11,8 +11,8 @@ android {
         applicationId "com.bnwsoft.smstoemail"
         minSdk 29
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 230507
+        versionName "1.0.${versionCode}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

@@ -3,10 +3,13 @@ package com.bnwsoft.smstoemail
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -27,8 +30,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -64,7 +69,7 @@ fun FiltersView(caller: FiltersActivity) {
     val filterContainsValue = dataUtils.loadFilterContains(context)
     var filterContains: String by rememberSaveable { mutableStateOf(filterContainsValue) }
 
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column() {
         TopAppBar(
             colors = TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primary
@@ -88,32 +93,49 @@ fun FiltersView(caller: FiltersActivity) {
             },
         )
 
-        Text("Forward only messages that contain:",
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-            fontSize = 20.sp)
-
-        Text("Enter one allowed phrase per line, or leave the field blank to forward everything",
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth(0.85f)
-                .align(Alignment.CenterHorizontally))
-
-        TextField(
-            value = filterContains,
-            singleLine = false,
-            maxLines = 5,
-            onValueChange = {
-                filterContains = it
-                dataUtils.saveFilterContains(context, it)
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(0.8f),
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.None,
-                keyboardType = KeyboardType.Text
+        Box {
+            Image(
+                painterResource(id = R.drawable.background),
+                contentDescription = "",
+                contentScale = ContentScale.FillBounds, // or some other scale
+                modifier = Modifier.fillMaxSize()
             )
-        )
+            Column (verticalArrangement = Arrangement.spacedBy(10.dp)) {
+
+                Text(
+                    "Forward only messages that contain:",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth().padding(15.dp),
+                    fontSize = 20.sp
+                )
+
+                Text(
+                    "Enter one allowed phrase per line, or leave the field blank to forward everything",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth(0.85f)
+                        .align(Alignment.CenterHorizontally)
+                )
+
+                TextField(
+                    value = filterContains,
+                    singleLine = false,
+                    maxLines = 5,
+                    onValueChange = {
+                        filterContains = it
+                        dataUtils.saveFilterContains(context, it)
+                    },
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .fillMaxWidth(0.8f),
+                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.None,
+                        keyboardType = KeyboardType.Text
+                    )
+                )
+            }
+        }
     }
 }
 
