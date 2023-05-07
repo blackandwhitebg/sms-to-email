@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -124,12 +125,14 @@ fun SettingsView(caller: SettingsActivity) {
         )
 
         Box {
-            Image(
-                painterResource(id = R.drawable.background),
-                contentDescription = "",
-                contentScale = ContentScale.FillBounds, // or some other scale
-                modifier = Modifier.fillMaxSize()
-            )
+            if (!isSystemInDarkTheme()) {
+                Image(
+                    painterResource(id = R.drawable.background),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds, // or some other scale
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
 
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Spacer(modifier = Modifier.height(5.dp))
@@ -150,7 +153,7 @@ fun SettingsView(caller: SettingsActivity) {
                         .align(Alignment.CenterHorizontally)
                         .fillMaxWidth(0.8f),
                     keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next, keyboardType = KeyboardType.Uri),
                     label = { Text("SMTP Host") }
                 )
 

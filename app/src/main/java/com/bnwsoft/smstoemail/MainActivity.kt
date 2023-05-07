@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -138,12 +139,14 @@ fun MainContent(currentText: String) {
         )
 
         Box {
-            Image(
-                painterResource(id = R.drawable.background),
-                contentDescription = "",
-                contentScale = ContentScale.FillBounds, // or some other scale
-                modifier = Modifier.fillMaxSize()
-            )
+            if (!isSystemInDarkTheme()) {
+                Image(
+                    painterResource(id = R.drawable.background),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds, // or some other scale
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
             Column {
                 Text(
                     emptyLogInfo,

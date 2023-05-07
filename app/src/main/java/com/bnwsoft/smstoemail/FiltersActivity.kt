@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -100,12 +101,14 @@ fun FiltersView(caller: FiltersActivity) {
         )
 
         Box {
-            Image(
-                painterResource(id = R.drawable.background),
-                contentDescription = "",
-                contentScale = ContentScale.FillBounds, // or some other scale
-                modifier = Modifier.fillMaxSize()
-            )
+            if (!isSystemInDarkTheme()) {
+                Image(
+                    painterResource(id = R.drawable.background),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillBounds, // or some other scale
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
             Column (verticalArrangement = Arrangement.spacedBy(10.dp)) {
 
                 Text(
