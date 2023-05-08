@@ -27,6 +27,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -60,10 +64,6 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val dataUtils = DataUtils()
-        val currentText = dataUtils.loadLog(this)
-
         super.onCreate(savedInstanceState)
         setContent {
             SmsToEmailTheme {
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainContent(currentText)
+                    MainContent()
                 }
             }
         }
@@ -97,8 +97,9 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainContent(currentText: String) {
+fun MainContent() {
     val context = LocalContext.current
+    val currentText: String by rememberSaveable { mutableStateOf(DataUtils().loadLog(context)) }
 
     var emptyLogInfo=""
     if (currentText.isBlank()) {
@@ -107,7 +108,6 @@ fun MainContent(currentText: String) {
     }
 
     Column {
-
         TopAppBar(
             colors = TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primary
@@ -169,6 +169,6 @@ fun MainContent(currentText: String) {
 @Composable
 fun GreetingPreview() {
     SmsToEmailTheme {
-        MainContent("Messages")
+        MainContent()
     }
 }
