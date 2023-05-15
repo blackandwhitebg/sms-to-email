@@ -16,6 +16,7 @@ class SmsReceiver : BroadcastReceiver() {
         Log.v("App", "SMS Received!")
         val message = Telephony.Sms.Intents.getMessagesFromIntent(intent)
         val content = message[0].displayMessageBody
+        val origin = message[0].displayOriginatingAddress
         //Toast.makeText(context, content, Toast.LENGTH_SHORT).show()
 
         if (filterMsg(content, context)) {
@@ -26,10 +27,12 @@ class SmsReceiver : BroadcastReceiver() {
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
         val output = formatter.format(localDateTime)
 
-        dataUtils.saveLog(context, "$output: $content")
+        val textToSave = "$output: $content ($origin)";
+
+        dataUtils.saveLog(context, textToSave)
 
         Thread {
-            SmtpManager().sendEmail(context, "$output: $content")
+            SmtpManager().sendEmail(context, textToSave)
         }.start()
     }
 
