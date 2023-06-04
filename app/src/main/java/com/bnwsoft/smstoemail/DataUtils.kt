@@ -24,7 +24,8 @@ class DataUtils {
     fun saveLog(context: Context, content: String) {
         val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)
         val current = sharedPreferences.getString(logText, "")
-        sharedPreferences.edit().putString(logText, current + "\n" + content).apply()
+        val txtToSave = current + "\n\n" + content
+        sharedPreferences.edit().putString(logText, txtToSave.trim()).apply()
     }
 
     fun loadFilterContains(context: Context) : String {
