@@ -49,7 +49,7 @@ android {
         }
     }
 
-    buildToolsVersion '33.0.2'
+    buildToolsVersion '30.0.3'
     ndkVersion '25.1.8937393'
 }
 
