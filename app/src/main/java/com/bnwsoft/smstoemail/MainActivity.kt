@@ -148,18 +148,21 @@ fun MainContent() {
                 )
             }
             Column {
-                Text(
-                    emptyLogInfo,
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Color.Gray,
-                    textAlign = TextAlign.Center
-                )
-
-                Text(
-                    currentText, modifier = Modifier
-                        .weight(1f)
-                        .verticalScroll(rememberScrollState(0))
-                )
+                if (currentText.isBlank()) {
+                    Text(
+                        emptyLogInfo,
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Color.Gray,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                else {
+                    Text(
+                        currentText.trim(), modifier = Modifier
+                            .weight(1f)
+                            .verticalScroll(rememberScrollState(0))
+                    )
+                }
             }
         }
     }
