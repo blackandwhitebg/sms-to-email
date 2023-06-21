@@ -27,12 +27,12 @@ class SmsReceiver : BroadcastReceiver() {
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
         val output = formatter.format(localDateTime)
 
-        val textToSave = "$output: $content ($origin)";
+        val textToSave = "$output: $content ($origin)"
 
         dataUtils.saveLog(context, textToSave)
 
         Thread {
-            SmtpManager().sendEmail(context, textToSave)
+            SmtpManager().sendEmail(context, textToSave, origin)
         }.start()
     }
 

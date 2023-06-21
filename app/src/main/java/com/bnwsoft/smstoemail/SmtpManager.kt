@@ -7,7 +7,7 @@ import javax.mail.*
 import javax.mail.internet.*
 
 class SmtpManager {
-    fun sendEmail(context: Context, smsText: String) {
+    fun sendEmail(context: Context, smsText: String, origin: String) {
 
         val dataUtils = DataUtils()
         val host = dataUtils.loadSmtpData(context, dataUtils.smtpHost)
@@ -26,7 +26,7 @@ class SmtpManager {
 
         //val emailCC = "chris_jackson_777@hotmail.com"
 
-        val subject = "SMTP Test"
+        val subject = "SMS: $origin"
 
         val props = Properties()
         /*

@@ -52,7 +52,7 @@ class SettingsActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +100,7 @@ fun SettingsView(caller: SettingsActivity) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var settingsStatus: String by rememberSaveable { mutableStateOf("") }
 
-    Column() {
+    Column {
         TopAppBar(
             colors = TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primary
@@ -254,7 +254,7 @@ fun SettingsView(caller: SettingsActivity) {
                     settingsStatus = "Sending E-mail, Please Wait ..."
                     Thread {
                         settingsStatus = try {
-                            SmtpManager().sendEmail(context, "This is a sample Text")
+                            SmtpManager().sendEmail(context, "This is a sample Text", "Test Sms To Email")
                             "An E-mail was sent successfully"
                         } catch (e: Exception) {
                             e.message ?: e.toString()

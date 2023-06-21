@@ -47,7 +47,7 @@ class FiltersActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +76,7 @@ fun FiltersView(caller: FiltersActivity) {
     val filterContainsValue = dataUtils.loadFilterContains(context)
     var filterContains: String by rememberSaveable { mutableStateOf(filterContainsValue) }
 
-    Column() {
+    Column {
         TopAppBar(
             colors = TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primary
