@@ -9,11 +9,15 @@ class DataUtils {
     private val logText = "LOG_TEXT"
     private val filterContains = "FILTER_CONTAINS"
 
+    val fwdSelection = "FWD_SELECTION"
+
     val smtpHost = "SMTP_HOST"
     val smtpPort = "SMTP_PORT"
     val smtpEmail = "SMTP_EMAIL"
     val smtpPass = "SMTP_PASS"
     val smtpToEmail = "SMTP_TO_EMAIL"
+
+    val smsToPhone = "SMS_TO_PHONE"
 
     fun loadLog(context: Context) : String {
         val sharedPreferences = context.getSharedPreferences(appPreferences, Context.MODE_PRIVATE)

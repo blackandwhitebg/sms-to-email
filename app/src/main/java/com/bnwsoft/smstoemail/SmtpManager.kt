@@ -16,7 +16,7 @@ class SmtpManager {
         val toEmail = dataUtils.loadSmtpData(context, dataUtils.smtpToEmail)
         val pass = dataUtils.loadSmtpData(context, dataUtils.smtpPass)
 
-        try{
+        try {
             port.toInt()
         }
         catch (e: Exception) {

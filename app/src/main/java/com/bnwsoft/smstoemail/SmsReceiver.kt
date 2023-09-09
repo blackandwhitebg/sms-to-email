@@ -31,9 +31,15 @@ class SmsReceiver : BroadcastReceiver() {
 
         dataUtils.saveLog(context, textToSave)
 
-        Thread {
-            SmtpManager().sendEmail(context, textToSave, origin)
-        }.start()
+        val fwdSel = dataUtils.loadSmtpData(context, dataUtils.fwdSelection)
+        if (fwdSel == "E-mail") {
+            Thread {
+                SmtpManager().sendEmail(context, textToSave, origin)
+            }.start()
+        }
+        else if (fwdSel == "SMS") {
+            SmsSender().sendSms(context, content)
+        }
     }
 
     private fun filterMsg(msg: String, context: Context) : Boolean {
